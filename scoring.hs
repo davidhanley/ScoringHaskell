@@ -1,9 +1,25 @@
+import System.Directory (listDirectory)
+import Text.Read (readMaybe)
 
+path :: String
+path = "data"
 
-proc (name:date:_:points:rest)  = print [name,date,points]
-proc _ = print "None"
+proc:: [String] -> Integer
+proc (name:date:_:p2:rest) =
+  case (readMaybe p2) of
+    Nothing -> 0
+    Just x -> x + 1
+proc _ = 0
 
+readAFile:: String -> IO Integer
+readAFile fn = do
+  let fullpath = (path ++ "/" ++ fn)
+  input <- readFile fullpath
+  return (proc (lines input))
+
+main :: IO ()
 main = do
-    input <- readFile "data/2022-wtc.csv" 
-    let fc = lines input
-    proc fc
+  files <- listDirectory path
+  res <- traverse readAFile files
+  print res 
+
