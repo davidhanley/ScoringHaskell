@@ -9,8 +9,8 @@ import Scoring
 --test2 :: Test
 --test2 = TestCase (assertEqual "test1" (stringToGender "m") (Just Male) )
 
-test2 :: Test
-test2 = TestList [ "First STG test"   ~: (Just Male) ~=? (stringToGender "Male")
+test1 :: Test
+test1 = TestList [ "First STG test"   ~: (Just Male) ~=? (stringToGender "Male")
                  , "Second STG test"  ~: (Just Male) ~=? (stringToGender "m")
                  , "Third STG test"  ~: (Just Female) ~=? (stringToGender "f")
                  , "Fourth STG test"  ~: (Just Female) ~=? (stringToGender "Female")
@@ -20,6 +20,6 @@ test2 = TestList [ "First STG test"   ~: (Just Male) ~=? (stringToGender "Male")
 
 main :: IO Counts
 main = do
-  runTestTT test2
+  runTestTT test1
 
 
