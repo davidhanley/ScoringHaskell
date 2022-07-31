@@ -2,6 +2,7 @@ module Scoring where
 
 import System.Directory (listDirectory)
 import Text.Read (readMaybe)
+import Data.Strings (strSplitAll)
 
 data Gender = Male | Female deriving (Show, Eq )
 
@@ -14,7 +15,10 @@ stringToGender _ = Just Female
 
 data Athlete = Athlete { athleteName :: String , age :: Maybe Int , sex :: Gender }
 
-data RaceData = RaceData { raceName :: String , raceDate :: String , points :: Int , athLines :: [String]} deriving (Show)
+athFromString :: String -> [String]
+athFromString line = strSplitAll "," line
+
+data RaceData = RaceData { raceName :: String , raceDate :: String , points :: Int , athLines :: [[String]]} deriving (Show)
 
 path :: String
 path = "data"
@@ -22,7 +26,7 @@ path = "data"
 processHeader:: [String] -> Maybe RaceData
 processHeader (name:date:_:p2:rest) =
   case (readMaybe p2) of
-    Just(x) -> Just $ RaceData { raceName=name, raceDate = date , points = x , athLines = rest }
+    Just(x) -> Just $ RaceData { raceName=name, raceDate = date , points = x , athLines = map athFromString rest }
     _ -> Nothing
 processHeader _ = Nothing
 
