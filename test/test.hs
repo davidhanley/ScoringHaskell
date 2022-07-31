@@ -17,8 +17,6 @@ test1 = TestList [ "First STG test"   ~: (Just Male) ~=? (stringToGender "Male")
                  , "Fourth STG test"  ~: (Just Female) ~=? (stringToGender "Female")
                  , "Fifth STG test"  ~: Nothing ~=? (stringToGender "Bobby")
                  , "Sixth STG test"  ~: Nothing ~=? (stringToGender "")
-
-                 , "seventh random test" ~: (wordsWhen (== ',') "d,i,c") ~=? ["d" "i" "c"]
                   ]
 
 main :: IO Counts
